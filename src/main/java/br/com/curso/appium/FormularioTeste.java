@@ -1,167 +1,124 @@
 package br.com.curso.appium;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import static org.junit.Assert.assertEquals;
 
+import java.net.MalformedURLException;
+
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
+import br.com.curso.appium.core.DSL;
+import br.com.curso.appium.core.DriverFactory;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
 
 public class FormularioTeste {
 
+	private DSL dsl = new DSL();
+
+	@Before
+	public void inicializarAppium() throws MalformedURLException {
+		dsl.clicarPorTexto("Formulário");
+	}
+
+	@After
+	public void tearDown() {
+		DriverFactory.killDriver();
+	}
+
 	@Test
 	public void devePreencherCampoTexto() throws MalformedURLException {
-		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-		desiredCapabilities.setCapability("platformName", "Android");
-		desiredCapabilities.setCapability("deviceName", "emulator-5554");
-		desiredCapabilities.setCapability("automationName", "uiautomator2");
-		// desiredCapabilities.setCapability("appPackage", "com.android.calculator2");
-		// desiredCapabilities.setCapability("appActivity",
-		// "com.android.calculator2.Calculator");
-		desiredCapabilities.setCapability(MobileCapabilityType.APP,
-		"/Users/eduardo.matias/Documents/eclipce-workspace/Automacao-Appium-Android/src/main/resources/CTAppium-1-1.apk");
+		dsl.escrever(MobileBy.AccessibilityId("nome"), "Eduardo");
+//		MobileElement campoNome = driver.findElement(MobileBy.AccessibilityId("nome"));
+//		campoNome.sendKeys("Eduardo");
 
-		AndroidDriver<MobileElement> driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),desiredCapabilities);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-		
-		
-		// SELECIONAR FORMULARIO
-		List<MobileElement> elementosEncontrados = driver.findElements(By.className("android.widget.TextView"));
-		elementosEncontrados.get(1).click();
-//		for (MobileElement elemento : elementosEncontrados) {
-//			System.out.println(elemento.getText());
-//		}
-		
-        // ESCREVER NOME  EDITTEXT
-		MobileElement campoNome =  driver.findElement(MobileBy.AccessibilityId("nome"));
-		campoNome.sendKeys("Eduardo Henrique");
-        // CHECAR A ESCRITA
-		String valida = campoNome.getText();
-		Assert.assertEquals("Eduardo Henrique", valida);
-		
-
-		driver.quit();
+		assertEquals("Eduardo", dsl.obterTexto(MobileBy.AccessibilityId("nome")));
+//		String valida = campoNome.getText();
+//		Assert.assertEquals("Eduardo", valida);
 	}
-	
+
 	@Test
 	public void deveInteragirCombo() throws MalformedURLException {
-		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-		desiredCapabilities.setCapability("platformName", "Android");
-		desiredCapabilities.setCapability("deviceName", "emulator-5554");
-		desiredCapabilities.setCapability("automationName", "uiautomator2");
-		desiredCapabilities.setCapability(MobileCapabilityType.APP,
-		"/Users/eduardo.matias/Documents/eclipce-workspace/Automacao-Appium-Android/src/main/resources/CTAppium-1-1.apk");
 
-		AndroidDriver<MobileElement> driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),desiredCapabilities);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-		// SELECIONAR FORMULARIO XPATH
-		driver.findElement(By.xpath("//android.widget.TextView[@text='Formulário']")).click();
-		
 		// CLICAR NO COMBO
-		driver.findElement(MobileBy.AccessibilityId("console")).click();
-		
-		// SELECIONAR A OPCAO SELECIONADA
-	    driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='Nintendo Switch']")).click();
-	    
-	    // VERIFICAR OPCAO SELECIONADA
-	    String text = driver.findElement(By.xpath("//android.widget.Spinner/android.widget.TextView")).getText();
-        Assert.assertEquals("Nintendo Switch", text);
+		dsl.selecionarCombo(MobileBy.AccessibilityId("console"), "Nintendo Switch");
+		// driver.findElement(MobileBy.AccessibilityId("console")).click();
 
-	    driver.quit();
+		// SELECIONAR A OPCAO SELECIONADA
+		// driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='Nintendo
+		// Switch']")).click();
+
+		// VERIFICAR OPCAO SELECIONADA
+		String text = dsl.obterTexto(By.xpath("//android.widget.Spinner/android.widget.TextView"));
+		Assert.assertEquals("Nintendo Switch", text);
 	}
-	
-	
+
 	@Test
 	public void deveInteragirSwitchCheckBox() throws MalformedURLException {
-		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-		desiredCapabilities.setCapability("platformName", "Android");
-		desiredCapabilities.setCapability("deviceName", "emulator-5554");
-		desiredCapabilities.setCapability("automationName", "uiautomator2");
-		desiredCapabilities.setCapability(MobileCapabilityType.APP,"/Users/eduardo.matias/Documents/eclipce-workspace/Automacao-Appium-Android/src/main/resources/CTAppium-1-1.apk");
-
-		AndroidDriver<MobileElement> driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),desiredCapabilities);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-		// SELECIONAR FORMULARIO XPATH
-		
-		
-		// VERIFICAR STATUS DOS ELEMENTEOS 
-		MobileElement check = driver.findElement(By.className("android.widget.CheckBox"));
-		MobileElement switc = driver.findElement(MobileBy.AccessibilityId("switch"));
 		// VALIDAÇÃO
-		Assert.assertTrue(check.getAttribute("checked").equals("false"));
-		Assert.assertTrue(switc.getAttribute("checked").equals("true"));
-		
+		Assert.assertFalse(dsl.isCheckMarcado(By.className("android.widget.CheckBox")));
+		Assert.assertTrue(dsl.isCheckMarcado(MobileBy.AccessibilityId("switch")));
+
+		dsl.clicar(By.className("android.widget.CheckBox"));
+		dsl.clicar(MobileBy.AccessibilityId("switch"));
+		// VERIFICAR STATUS DOS ELEMENTEOS
+//		MobileElement check = driver.findElement(By.className("android.widget.CheckBox"));
+//		MobileElement switc = driver.findElement(MobileBy.AccessibilityId("switch"));
+
 		// CLICLAR NOS ELEMENTOS
-		check.click();
-		switc.click();
-		
+//		check.click();
+//		switc.click();
+
 		// VERIFICAR ESTADOS ALTERADOS
-		Assert.assertFalse(check.getAttribute("checked").equals("false"));
-		Assert.assertFalse(switc.getAttribute("checked").equals("true"));
-		
-
-	    driver.quit();
+		Assert.assertTrue(dsl.isCheckMarcado(By.className("android.widget.CheckBox")));
+		Assert.assertFalse(dsl.isCheckMarcado(MobileBy.AccessibilityId("switch")));
 	}
-	
+
 	@Test
-	public void deveResolverDesafio() throws MalformedURLException {
-		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-		desiredCapabilities.setCapability("platformName", "Android");
-		desiredCapabilities.setCapability("deviceName", "emulator-5554");
-		desiredCapabilities.setCapability("automationName", "uiautomator2");
-		desiredCapabilities.setCapability(MobileCapabilityType.APP,"/Users/eduardo.matias/Documents/eclipce-workspace/Automacao-Appium-Android/src/main/resources/CTAppium-1-1.apk");
+	public void deveRealizarCadastro() throws MalformedURLException {
+		dsl.escrever(By.className("android.widget.EditText"), "Eduardo");
+		dsl.clicar(By.className("android.widget.CheckBox"));
+		dsl.clicar(By.className("android.widget.Switch"));
+		dsl.selecionarCombo(By.className("android.widget.Spinner"), "Nintendo Switch");
 
-		AndroidDriver<MobileElement> driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),desiredCapabilities);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		// SALVAR
+		dsl.clicarPorTexto("SALVAR");
+//		driver.findElement(By.xpath("//*[@text='SALVAR']")).click();
 
-		driver.findElement(By.xpath("//*[@text='Formulário']")).click();
+		// VERIFIÇOES
+		Assert.assertEquals("Nome: Eduardo",dsl.obterTexto(By.xpath("//android.widget.TextView[@text='Nome: Eduardo']")));
 		
-		driver.findElement(By.className("android.widget.EditText")).sendKeys("Eduardo");
-		driver.findElement(By.className("android.widget.CheckBox")).click();
-		driver.findElement(By.className("android.widget.Switch")).click();
-		driver.findElement(By.className("android.widget.Spinner")).click();
-		driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='Nintendo Switch']")).click();
+		Assert.assertEquals("Console: switch", dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]")));
 		
-		//SALVAR
-		driver.findElement(By.xpath("//*[@text='SALVAR']")).click();
+		Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]")).endsWith("Off"));
 		
-		//VERIFIÇOES
-		MobileElement nome = driver.findElement(By.xpath("//android.widget.TextView[@text='Nome: Eduardo']"));
-		Assert.assertEquals("Nome: Eduardo", nome.getText());
+		Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]")).endsWith("Marcado"));
 		
 		
-		MobileElement swit = driver.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]"));
-		Assert.assertTrue(swit.getText().endsWith("Off"));
-		
-		
-		MobileElement combo = driver.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]"));
-		Assert.assertEquals("Console: switch", combo.getText());
-		
-		
-		
-		MobileElement check = driver.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]"));
-		Assert.assertTrue(check.getText().endsWith("Marcado"));
-		
-		
-		driver.quit();
-		
-		
-		
+
+//		driver.findElement(By.xpath("//*[@text='Formulário']")).click();
+//
+//		driver.findElement(By.className("android.widget.EditText")).sendKeys("Eduardo");
+//		driver.findElement(By.className("android.widget.CheckBox")).click();
+//		driver.findElement(By.className("android.widget.Switch")).click();
+//		driver.findElement(By.className("android.widget.Spinner")).click();
+//		driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='Nintendo Switch']")).click();
+//		// SALVAR
+//		driver.findElement(By.xpath("//*[@text='SALVAR']")).click();
+//		// VERIFIÇOES
+//		MobileElement nome = driver.findElement(By.xpath("//android.widget.TextView[@text='Nome: Eduardo']"));
+//		Assert.assertEquals("Nome: Eduardo", nome.getText());
+//
+//		MobileElement swit = driver.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]"));
+//		Assert.assertTrue(swit.getText().endsWith("Off"));
+//
+//		MobileElement combo = driver.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]"));
+//		Assert.assertEquals("Console: switch", combo.getText());
+//
+//		MobileElement check = driver
+//				.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]"));
+//		Assert.assertTrue(check.getText().endsWith("Marcado"));
 	}
-	
-	
-	
-	
 }
