@@ -1,10 +1,18 @@
 package br.com.curso.appium.core;
 
 import org.junit.After;
+import org.junit.AfterClass;
 
 public class BaseTest {
-    @After
-	public void tearDown() {
+	
+	@AfterClass
+	public static void finalizarClasse() {
 		DriverFactory.killDriver();
+	}
+	
+	@After
+	public void tearDown() {
+		DriverFactory.getDriver().resetApp();
+
 	}
 }
