@@ -1,6 +1,5 @@
 package br.com.curso.appium.page;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import br.com.curso.appium.core.DSL;
@@ -48,7 +47,23 @@ public class FormularioPage {
 	public void salvar() {
 		dsl.clicarPorTexto("SALVAR");
 	}
-
+	
+	public String obterNomeCadastrado() {
+		return	dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Nome:')]"));
+	}		
+	
+	
+	public String obterConsoleCadastrado() {
+		return dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]"));
+	}
+	
+	public String obterCheckCadastro() {
+		return dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]"));
+	}
+	
+	public String obterSwitchCadastrado() {
+		return dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]"));
+	}
 	
 	
 	

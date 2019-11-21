@@ -8,17 +8,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
-import br.com.curso.appium.core.DSL;
 import br.com.curso.appium.core.DriverFactory;
 import br.com.curso.appium.page.FormularioPage;
 import br.com.curso.appium.page.MenuPage;
-import io.appium.java_client.MobileBy;
 
 public class FormularioTeste {
 
-	private DSL dsl = new DSL();
 	private MenuPage menu = new MenuPage();
 	private FormularioPage page = new FormularioPage();
 	
@@ -112,13 +108,17 @@ public class FormularioTeste {
 //		driver.findElement(By.xpath("//*[@text='SALVAR']")).click();
 
 		// VERIFIÇOES
-		Assert.assertEquals("Nome: Eduardo",dsl.obterTexto(By.xpath("//android.widget.TextView[@text='Nome: Eduardo']")));
+		Assert.assertEquals("Nome: Eduardo",page.obterNomeCadastrado());
+	   //Assert.assertEquals("Nome: Eduardo",dsl.obterTexto(By.xpath("//android.widget.TextView[@text='Nome: Eduardo']")));
 		
-		Assert.assertEquals("Console: switch", dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]")));
+		Assert.assertEquals("Console: switch", page.obterConsoleCadastrado());
+		//Assert.assertEquals("Console: switch", dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]")));
 		
-		Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]")).endsWith("Off"));
+		Assert.assertTrue(page.obterCheckCadastro().endsWith("Off"));
+		//Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]")).endsWith("Off"));
 		
-		Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]")).endsWith("Marcado"));
+		Assert.assertTrue(page.obterSwitchCadastrado().endsWith("Marcado"));
+	  //Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]")).endsWith("Marcado"));
 		
 		
 
