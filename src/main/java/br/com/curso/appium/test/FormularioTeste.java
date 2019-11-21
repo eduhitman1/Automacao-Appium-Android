@@ -3,14 +3,20 @@ package br.com.curso.appium.test;
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.curso.appium.core.BaseTest;
+import br.com.curso.appium.core.DriverFactory;
 import br.com.curso.appium.page.FormularioPage;
 import br.com.curso.appium.page.MenuPage;
+import io.appium.java_client.functions.ExpectedCondition;
 
 public class FormularioTeste extends BaseTest{
 
@@ -87,8 +93,7 @@ public class FormularioTeste extends BaseTest{
 	}
 
 	@Test
-	public void deveRealizarCadastro() throws MalformedURLException {
-		
+	public void deveRealizarCadastro() throws MalformedURLException {	
 		page.escreverNome("Eduardo");
 //		dsl.escrever(By.className("android.widget.EditText"), "Eduardo");
         page.clicarCheck();
@@ -115,9 +120,7 @@ public class FormularioTeste extends BaseTest{
 		
 		Assert.assertTrue(page.obterSwitchCadastrado().endsWith("Marcado"));
 	  //Assert.assertTrue(dsl.obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]")).endsWith("Marcado"));
-		
-		
-
+	
 //		driver.findElement(By.xpath("//*[@text='Formulário']")).click();
 //
 //		driver.findElement(By.className("android.widget.EditText")).sendKeys("Eduardo");
@@ -141,4 +144,17 @@ public class FormularioTeste extends BaseTest{
 //				.findElement(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]"));
 //		Assert.assertTrue(check.getText().endsWith("Marcado"));
 	}
+	
+	@Test
+	public void deveRealizarCadastroDemorado() throws MalformedURLException {
+		page.escreverNome("Eduardo");
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		page.salvarDemorado();
+//		esperar(3000);
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), 10);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Nome: Eduardo']")));
+		Assert.assertEquals("Nome: Eduardo", page.obterNomeCadastrado());
+	}		
+	
+	
 }
