@@ -18,6 +18,10 @@ public class MenuPage extends BasePage {
 	}
 	
 	
+	public void acessarAbas() {
+		clicarPorTexto("Abas");
+	}
+	
 	
 	
 	
