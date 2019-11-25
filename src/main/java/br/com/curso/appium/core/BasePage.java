@@ -42,8 +42,7 @@ public class BasePage {
 	// VERIFICAR NOVAMENTEO
 //	List<MobileElement> elementos = getDriver().findElement(By.xpath("//*[@text='"+texto+"']"));
 	public boolean existeElementoPorTexto(String texto) {
-
-		List<MobileElement> elementos = (List<MobileElement>) getDriver()
+     List<MobileElement> elementos = (List<MobileElement>) getDriver()
 				.findElements(By.xpath("//*[@text='" + texto + "']"));
 		return elementos.size() > 0;
 

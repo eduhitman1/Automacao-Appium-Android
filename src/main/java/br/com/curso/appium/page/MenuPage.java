@@ -13,4 +13,13 @@ public class MenuPage extends BasePage {
 	}
 	
 	
+	public void acessarAlertas() {
+		clicarPorTexto("Alertas");
+	}
+	
+	
+	
+	
+	
+	
 }
