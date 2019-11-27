@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -157,4 +158,11 @@ public class FormularioTeste extends BaseTest{
 	}		
 	
 	
+	@Test
+	public void deveAlterarData() {
+		 page.clicarPorTexto("01/01/2000");
+		 page.clicarPorTexto("20");
+		 page.clicarPorTexto("OK");
+		 Assert.assertTrue(page.existeElementoPorTexto("20/2/2000"));
+	}
 }
