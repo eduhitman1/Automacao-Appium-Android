@@ -22,7 +22,9 @@ public class MenuPage extends BasePage {
 		clicarPorTexto("Abas");
 	}
 	
-	
+	public void acessarAccordion() {
+		clicarPorTexto("Accordion");
+	}
 	
 	
 	
