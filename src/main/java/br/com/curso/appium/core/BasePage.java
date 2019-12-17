@@ -7,6 +7,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 
 public class BasePage {
 
@@ -45,7 +46,12 @@ public class BasePage {
      List<MobileElement> elementos = (List<MobileElement>) getDriver()
 				.findElements(By.xpath("//*[@text='" + texto + "']"));
 		return elementos.size() > 0;
-
 	}
+	
+	
+	public void tap(int x, int y) {
+		new TouchAction(getDriver()).tap(x,y).perform();
+	}
+	
 
 }

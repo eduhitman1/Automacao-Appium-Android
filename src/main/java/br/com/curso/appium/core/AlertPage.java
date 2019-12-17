@@ -9,6 +9,10 @@ public class AlertPage extends BasePage {
 	}
 	
 	
+	public void clicarAlertaSimples() {
+		clicarPorTexto("ALERTA SIMPLES");
+	}
+	
 	public String obterTituloAlerta() {
 		return obterTexto(By.id("android:id/alertTitle"));
 	}
@@ -26,6 +30,12 @@ public class AlertPage extends BasePage {
 	public void sair() {
 		clicar(By.id("android:id/button1"));
 	}
+	
+	public void clicarForaCaixa() {
+		
+		tap(100,150);
+	}
+	
 	
 	
 	
