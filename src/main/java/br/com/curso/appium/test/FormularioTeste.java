@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,7 +17,6 @@ import br.com.curso.appium.core.DriverFactory;
 import br.com.curso.appium.page.FormularioPage;
 import br.com.curso.appium.page.MenuPage;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.functions.ExpectedCondition;
 
 public class FormularioTeste extends BaseTest {
 
@@ -183,7 +181,5 @@ public class FormularioTeste extends BaseTest {
 	public void deveInteragirComSeekvar() {
 		page.ClickSeekBar(0.65);
 		page.salvar();
-
 	}
-
 }

@@ -11,7 +11,7 @@ import io.appium.java_client.TouchAction;
 
 public class BasePage {
 
-	private MobileElement findElement;
+//	private MobileElement findElement;
 
 	public void escrever(By by, String texto) {
 		getDriver().findElement(by).sendKeys(texto);
@@ -54,4 +54,6 @@ public class BasePage {
 	}
 	
 
+	
+	
 }

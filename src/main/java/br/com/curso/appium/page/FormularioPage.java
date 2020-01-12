@@ -44,7 +44,7 @@ public class FormularioPage extends BasePage {
 	public void salvar() {
 		clicarPorTexto("SALVAR");
 	}
-	
+
 	public void salvarDemorado() {
 		clicarPorTexto("SALVAR DEMORADO");
 	}
@@ -64,24 +64,18 @@ public class FormularioPage extends BasePage {
 	public String obterSwitchCadastrado() {
 		return obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]"));
 	}
-	
-	
-	public void  ClickSeekBar(double posicao) {
-     int delta = 55;
-		MobileElement seek = DriverFactory.getDriver().findElement(MobileBy.AccessibilityId("slid"));
-		
-     int y = seek.getLocation().y + (seek.getSize().height/2);
-     System.out.println(y);
-     
-     int xinicial = seek.getLocation().x+ delta;
-     int x = (int) (xinicial + ((seek.getSize().width- 2* delta)* posicao));
-     
-     System.out.println(x);
-     
-     tap(x, y);
-     
-	}
-	
-	
 
+	public void ClickSeekBar(double posicao) {
+		int delta = 55;
+		MobileElement seek = DriverFactory.getDriver().findElement(MobileBy.AccessibilityId("slid"));
+
+		int y = seek.getLocation().y + (seek.getSize().height / 2);
+		System.out.println(y);
+
+		int xinicial = seek.getLocation().x + delta;
+		int x = (int) (xinicial + ((seek.getSize().width - 2 * delta) * posicao));
+		System.out.println(x);
+
+		tap(x, y);
+	}
 }

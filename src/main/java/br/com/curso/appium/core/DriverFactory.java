@@ -11,8 +11,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class DriverFactory {
-    private static AndroidDriver<MobileElement> driver;
-    public static AndroidDriver<MobileElement> getDriver() {
+	private static AndroidDriver<MobileElement> driver;
+
+	public static AndroidDriver<MobileElement> getDriver() {
 		if (driver == null) {
 			creadDriver();
 		}
@@ -26,7 +27,7 @@ public class DriverFactory {
 		desiredCapabilities.setCapability("automationName", "uiautomator2");
 		desiredCapabilities.setCapability(MobileCapabilityType.APP,
 				"/Users/eduardo.matias/Documents/eclipce-workspace/Automacao-Appium-Android/src/main/resources/CTAppium-1-1.apk");
-        try {
+		try {
 			driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), desiredCapabilities);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

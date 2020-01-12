@@ -7,11 +7,11 @@ public class AlertPage extends BasePage {
 	public void clicarAlertaConfirm() {
 		clicarPorTexto("ALERTA CONFIRM");
 	}
-	
+
 	public void clicarAlertaSimples() {
 		clicarPorTexto("ALERTA SIMPLES");
 	}
-	
+
 	public String obterTituloAlerta() {
 		return obterTexto(By.id("android:id/alertTitle"));
 	}
@@ -19,23 +19,17 @@ public class AlertPage extends BasePage {
 	public String obterMensagemAlert() {
 		return obterTexto(By.id("android:id/message"));
 	}
-	
-	
-	public void  confirmar() {
+
+	public void confirmar() {
 		clicarPorTexto("CONFIRMAR");
 	}
-	
-	
+
 	public void sair() {
 		clicar(By.id("android:id/button1"));
 	}
-	
+
 	public void clicarForaCaixa() {
-		tap(100,150);
+		tap(100, 150);
 	}
-	
-	
-	
-	
-	
+
 }

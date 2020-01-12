@@ -23,14 +23,7 @@ public class SplashTeste extends BaseTest {
 		// aguarda saida do splash
 		page.aguardarSplashSumir();
 		
-		
-		
 		//verificar que o formulario esta aparecendo
 		Assert.assertTrue(page.existeElementoPorTexto("Formulário"));
-		
-		
-		
 	}
-	
-	
 }

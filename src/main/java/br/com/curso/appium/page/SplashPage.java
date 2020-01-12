@@ -13,19 +13,13 @@ import br.com.curso.appium.core.BasePage;
 public class SplashPage extends BasePage {
 
 	public boolean isTelaSplashVisivel() {
-
 		return existeElementoPorTexto("Splash!");
 	}
 
 	public void aguardarSplashSumir() {
-
 		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		WebDriverWait wait = new WebDriverWait(getDriver(), 10);
 
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@text='Splash!']"))); // FAZER COM QUE
-																										// ESSE ELEMENTO
-																										// DESAPARECE DA
-																										// TELA
-
 	}
 }
