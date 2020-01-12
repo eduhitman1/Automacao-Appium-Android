@@ -1,5 +1,7 @@
 package br.com.curso.appium.test;
 
+import static org.junit.Assume.assumeNotNull;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +55,19 @@ public class AlertTeste extends BaseTest {
 		// verificar que a mensagem não está presente
 		Assert.assertFalse(page.existeElementoPorTexto("Pode clicar no OK ou fora da caixa para sair")); 
 
+	}
+	
+	
+	@Test
+	public void deveClicarForaAlert() {
+        // clicar alerta simles
+		page.clicarAlertaSimples();
+        
+		
+		esperar(1000);
+		page.clicarForaCaixa();
+		
+        Assert.assertFalse(page.existeElementoPorTexto("Pode clicar no OK ou fora da caixa para sair"));
 	}
 
 }
