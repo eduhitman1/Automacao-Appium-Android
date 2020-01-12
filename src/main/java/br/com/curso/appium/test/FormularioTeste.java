@@ -182,7 +182,6 @@ public class FormularioTeste extends BaseTest {
 	@Test
 	public void deveInteragirComSeekvar() {
 		page.ClickSeekBar(0.65);
-
 		page.salvar();
 
 	}
