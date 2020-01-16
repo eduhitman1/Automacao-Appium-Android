@@ -55,7 +55,17 @@ public class BasePage {
 		 new TouchAction(getDriver()).tap(x,y).perform();
 	}
 	
+	public String obterMensagemAlert() {
+		return obterTexto(By.id("android:id/message"));
+	}
 
+
+	public void scrollDown() {
+		scroll(0.9, 0.1);
+	}
+	public void scrollUp() {
+		scroll(0.1, 0.9);
+	}
 	public void scroll(double inicio, double fim ) {
 		Dimension size = getDriver().manage().window().getSize();
 		int x = size.width /2;
@@ -70,12 +80,48 @@ public class BasePage {
 		.perform();
 	}
 	
-	public String obterMensagemAlert() {
-		return obterTexto(By.id("android:id/message"));
+	
+	
+	
+	public void swipeDireita() {
+		swipe(0.9, 0.1);
 	}
+	public void swipeEsquerda() {
+		swipe(0.1, 0.9);
+	}
+	public void swipe(double inicio, double fim) {
+		Dimension size = getDriver().manage().window().getSize();
+		
+		int y=0;
+		y = size.height /2;
+		
+		int start_x = (int)(size.width* inicio);
+		
+		int end_x=0;
+		end_x = (int)(size.width *fim);
+		
+		new TouchAction(getDriver())
+		.press(start_x, y)
+		.waitAction(Duration.ofMillis(500))
+		.moveTo(end_x, y)
+		.release()
+		.perform();
+	}		
 	
 	
 	
-	
+	public void swipeElementy(MobileElement element, double inicio, double fim) {
+        int y = element.getLocation().y + (element.getSize().height/2);
+		
+		int start_x = (int)(element.getSize().width* inicio);
+		int end_x = (int)(element.getSize().width *fim);
+		
+		new TouchAction(getDriver())
+		.press(start_x, y)
+		.waitAction(Duration.ofMillis(500))
+		.moveTo(end_x, y)
+		.release()
+		.perform();
+	}
 	
 }

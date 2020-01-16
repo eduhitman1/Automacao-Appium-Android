@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import br.com.curso.appium.core.BaseTest;
 import br.com.curso.appium.page.MenuPage;
 
-public class OpcaoEscondidaTest extends BaseTest {
+public class ScrollTest extends BaseTest {
 
 
 	private MenuPage menu =  new MenuPage();
@@ -23,7 +23,11 @@ public class OpcaoEscondidaTest extends BaseTest {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Formulário']")));
 		System.out.println("Começando..");
 		
-		menu.scroll(0.9, 0.1);
+		menu.scrollDown();
+		
+		menu.scrollUp();
+		
+		menu.scrollDown();
 		
 		menu.clicarPorTexto("Opção bem escondida");
 		
