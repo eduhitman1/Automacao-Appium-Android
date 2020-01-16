@@ -17,5 +17,5 @@ public class CliquesPage extends BasePage {
 	public String obterTextoCampo() {
 		return getDriver().findElement(By.xpath("(//android.widget.TextView)[3]")).getText();
 	}
-
+	
 }
